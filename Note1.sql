@@ -1,4 +1,6 @@
--- Databricks notebook source
+USE CATALOG workspace;
+USE default;
+
 SELECT * FROM samples.accuweather.forecast_daily_calendar_imperial ;
 SELECT * FROM samples.nyctaxi.trips;
 
@@ -27,6 +29,15 @@ Select * from read_files("${da.paths.datasets}/ecommerce/raw/sales-csv",
 				Sep => "|" ,  --DELIMITER
 				Header =>true,
 				Mode => "failfast");
+
+CREATE OR REPLACE TEMP VIEW employees AS
+SELECT * FROM VALUES
+  (1, 'Alice', 'HR', 75000),
+  (2, 'Bob', 'Engineering', 98000),
+  (3, 'Charlie', 'HR', 62000),
+  (4, 'David', 'Engineering', 115000),
+  (5, 'Eve', 'Marketing', 68000)
+AS employees(id, name, department, salary);
 
 -------------------------------------------------------------
 --Incrementally load data:
@@ -134,3 +145,4 @@ SELECT f.customer_id, f.customer_name, f.number_of_line_items,
 
 
 
+-----------------------------------------------------------------
